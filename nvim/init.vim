@@ -180,8 +180,8 @@ hi Normal guibg=NONE ctermbg=NONE
 " noremap j gj
 " noremap k gk
 
-noremap <C-e> 5<C-e> 
-noremap <C-y> 5<C-y> 
+noremap <C-e> 5<C-e>
+noremap <C-y> 5<C-y>
 nmap <F8> :Obsession<CR> 
 nmap <F1> :pwd<CR> 
 nmap <F4> :Tex<CR> 
