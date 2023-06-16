@@ -27,11 +27,6 @@ vim.cmd([[
     colorscheme gruvbox
 ]])
 
--- vim.opt.runtimepath^=~/.vim runtimepath+=~/.vim/after
-
--- Declare the list of plugins.
--- Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-
 -- better key bindings for UltiSnipsExpandTrigger
 vim.g.UltiSnipsExpandTrigger = "<tab>"
 vim.g.UltiSnipsJumpForwardTrigger = "<tab>"
@@ -55,7 +50,7 @@ vim.cmd([[
 
 	set wrap
 	set linebreak
-	set relativenumber 
+	set number relativenumber 
 	set breakindent
 	set autoindent
 
