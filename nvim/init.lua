@@ -61,6 +61,7 @@ vim.cmd([[
 
 	set shiftwidth=4
 	set tabstop=4
+	set expandtab
 	set clipboard+=unnamedplus
 
 	set list
