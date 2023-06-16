@@ -22,6 +22,7 @@ require("plugins")
 vim.opt.background = 'dark'
 vim.cmd([[
     runtime! debian.vim
+	set runtimepath^=~/.vim runtimepath+=~/.vim/after
     let &packpath=&runtimepath
     colorscheme gruvbox
 ]])
@@ -37,6 +38,9 @@ vim.g.UltiSnipsJumpForwardTrigger = "<tab>"
 vim.g.UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 vim.cmd([[
+	set nocompatible
+	filetype off
+
 	filetype plugin indent on
 	let g:sneak#s_next = 1
 
