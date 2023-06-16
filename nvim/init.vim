@@ -119,7 +119,7 @@ noremap <silent> <C-S>          :update<CR>
 vnoremap <silent> <C-S>         <C-C>:update<CR>
 inoremap <silent> <C-S>         <C-O>:update<CR>
 nnoremap <C-p> :Buffers<Cr>
-nnoremap <C-l> :Ag<Cr>
+nnoremap <C-l> :Files<Cr>
 
 set directory^=$HOME/.vim/tmp//
 
@@ -212,3 +212,6 @@ let &t_EI = "\e[2 q"
 exec 'nnoremap <Leader>ss :Ob '.g:sessions_dir.'/*.vim<C-D><BS><BS><BS><BS><BS>'
 exec 'nnoremap <Leader>so :so '.g:sessions_dir.'/*.vim<C-D><BS><BS><BS><BS><BS>'
 
+vmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument

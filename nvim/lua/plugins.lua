@@ -76,4 +76,7 @@ return require('packer').startup(function(use)
   -- use { 'ellisonleao/gruvbox.nvim' }
   use { 'tpope/vim-obsession' }
   -- use { 'eandrju/cellular-automaton.nvim' }
+  -- use { 'morhetz/gruvbox' }
+  use { 'ellisonleao/gruvbox.nvim' }
+  use { 'neoclide/coc.nvim', branch='release' }
 end)
