@@ -99,7 +99,6 @@ autocmd BufReadPost *.php set syntax=php
 
 set wrap
 set linebreak
-set number
 set breakindent
 set autoindent
 

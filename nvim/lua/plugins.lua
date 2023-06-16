@@ -76,7 +76,13 @@ return require('packer').startup(function(use)
   -- use { 'ellisonleao/gruvbox.nvim' }
   use { 'tpope/vim-obsession' }
   -- use { 'eandrju/cellular-automaton.nvim' }
-  -- use { 'morhetz/gruvbox' }
-  use { 'ellisonleao/gruvbox.nvim' }
+  use { 'morhetz/gruvbox' }
   use { 'neoclide/coc.nvim', branch='release' }
+  use { 'vim-airline/vim-airline' }
+  use { 'tpope/vim-commentary' }
+  use { 'justinmk/vim-sneak' }
+  use { 'junegunn/fzf' }
+  use { 'junegunn/fzf.vim' }
+  use { 'SirVer/ultisnips' }
+  use { 'honza/vim-snippets' }
 end)
