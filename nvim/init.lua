@@ -37,6 +37,7 @@ vim.g.UltiSnipsJumpForwardTrigger = "<tab>"
 vim.g.UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 vim.cmd([[
+	filetype plugin indent on
 	let g:sneak#s_next = 1
 
 	set statusline+=%{ObsessionStatus()}
@@ -58,6 +59,7 @@ vim.cmd([[
 	set tabstop=4
 	set clipboard+=unnamedplus
 
+	set list
 	set lcs=tab:»_,trail:·
 
 	noremap <silent> <C-S>          :update<CR>
