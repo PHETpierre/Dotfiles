@@ -72,6 +72,8 @@ vim.cmd([[
 
 	hi Normal guibg=NONE ctermbg=NONE
 	hi Visual cterm=none ctermbg=darkgrey ctermfg=cyan
+
+    command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
 ]])
 
 -- set noexpandtab tabstop=4 shiftwidth=4
