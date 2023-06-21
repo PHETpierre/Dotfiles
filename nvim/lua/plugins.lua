@@ -85,4 +85,5 @@ return require('packer').startup(function(use)
   use { 'junegunn/fzf.vim' }
   use { 'SirVer/ultisnips' }
   use { 'honza/vim-snippets' }
+  use { 'numtostr/BufOnly.nvim' }
 end)
