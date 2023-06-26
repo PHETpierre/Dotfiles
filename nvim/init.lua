@@ -91,6 +91,11 @@ nmap("<C-l>", ":Files<Cr>")
 imap("(", "()<left>")
 imap("[", "[]<left>")
 
+imap("<F9>", "<C-O>za")
+nmap("<F9>", "za")
+vmap("<F9>", "zf")
+-- onoremap <F9> <C-C>za
+
 -- delete without yanking
 nmap("<leader>d", "\"_d")
 vmap("<leader>d", "\"_d")
