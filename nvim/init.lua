@@ -18,6 +18,65 @@ end
 
 -- lua require('plugins')
 require("plugins")
+require("mason").setup()
+local lsp = require('lsp-zero').preset({})
+
+lsp.on_attach(function(client, bufnr)
+  lsp.default_keymaps({buffer = bufnr})
+end)
+
+-- (Optional) Configure lua language server for neovim
+-- require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
+
+lsp.setup()
+
+-- [[ Configure nvim-cmp ]]
+-- See `:help cmp`
+local cmp = require 'cmp'
+local luasnip = require 'luasnip'
+require('luasnip.loaders.from_vscode').lazy_load()
+luasnip.config.setup {}
+
+cmp.setup {
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)
+    end,
+  },
+  mapping = cmp.mapping.preset.insert {
+    ['<C-j>'] = cmp.mapping.select_next_item(),
+    ['<C-k>'] = cmp.mapping.select_prev_item(),
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete {},
+    ['<CR>'] = cmp.mapping.confirm {
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    },
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expand_or_locally_jumpable() then
+        luasnip.expand_or_jump()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.locally_jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+  },
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' },
+  },
+}
 
 vim.opt.background = 'dark'
 vim.cmd([[
@@ -40,9 +99,9 @@ vim.cmd([[
 	let g:sneak#s_next = 1
 
 	set statusline+=%{ObsessionStatus()}
-	let g:airline#extensions#tabline#enabled = 1
-	let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-	let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''$'', '''')}', 'windowswap', '%3p%%', 'linenr', ':%3v', ' %L'])
+    let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+    let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''$'', '''')}', 'windowswap', '%3p%%', 'linenr', ':%3v', ' %L'])
 
 	autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window " . expand("%:t"))
 	autocmd BufReadPost *.php set filetype=html.php.css
@@ -67,6 +126,8 @@ vim.cmd([[
 	inoremap <silent> <C-S>         <C-O>:update<CR>
 	nnoremap <C-p> :Buffers<Cr>
 
+	noremap <C-x>          :Tabularize /=<CR>
+
 	set directory^=$HOME/.vim/tmp//
 	map! <C-v> <C-S-r>" 
 
@@ -78,6 +139,47 @@ vim.cmd([[
     command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
 ]])
 
+-- require('lualine').setup {
+--   options = {
+--     icons_enabled = true,
+--     theme = 'gruvbox',
+--     component_separators = { left = '' },
+--     section_separators = { left = '' },
+--     disabled_filetypes = {
+--       statusline = {},
+--       winbar = {},
+--     },
+--     ignore_focus = {},
+--     always_divide_middle = true,
+--     globalstatus = false,
+--     refresh = {
+--       statusline = 1000,
+--       tabline = 1000,
+--       winbar = 1000,
+--     }
+--   },
+--   sections = {
+--     lualine_a = {'mode'},
+--     lualine_b = {},
+--     lualine_c = {'filename'},
+--     lualine_x = {'encoding', 'fileformat', 'filetype'},
+--     lualine_y = {'progress'},
+--     lualine_z = {'location'}
+--   },
+--   inactive_sections = {
+--     lualine_a = {},
+--     lualine_b = {},
+--     lualine_c = {'filename'},
+--     lualine_x = {'location'},
+--     lualine_y = {},
+--     lualine_z = {}
+--   },
+--   tabline = {},
+--   winbar = {},
+--   inactive_winbar = {},
+--   extensions = {}
+-- }
+
 -- set noexpandtab tabstop=4 shiftwidth=4
 
 -- nmap("<silent> <C-S>", ":update<CR>")
@@ -85,6 +187,8 @@ vim.cmd([[
 -- imap("<silent> <C-S>", "<C-O>:update<CR>")
 nmap("<C-p>", ":Buffers<Cr>")
 nmap("<C-l>", ":Files<Cr>")
+nmap("<leader>fa", ":Ag<Cr>")
+-- nmap("<leader>fb", ":BLines<Cr>")
 
 -- vmap("<C-y>", "\"+y")
 
@@ -146,3 +250,33 @@ vim.cmd([[
 	nmap <leader>f  <Plug>(coc-format-selected)
 	command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
 ]])
+
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+vim.keymap.set('n', '<leader>fb', builtin.current_buffer_fuzzy_find, {})
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+-- vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+vim.keymap.set('n', '<leader>fl', builtin.loclist, {})
+-- vim.keymap.set('n', '<leader>fr', builtin.lsp_reference, {})
+vim.keymap.set('n', '<leader>fi', builtin.lsp_implementations, {})
+vim.keymap.set('n', '<leader>fr', builtin.lsp_definitions, {})
+
+local actions = require "telescope.actions"
+local telescope = require "telescope"
+
+telescope.setup {
+    defaults = {
+        mappings = {
+            i = {
+                ["<C-j>"] = actions.move_selection_next,
+                ["<C-k>"] = actions.move_selection_previous,
+                ["<C-n>"] = actions.cycle_history_next,
+                ["<C-p>"] = actions.cycle_history_prev,
+            },
+        },
+    },
+}
+
+-- nmap{"<C-f>", "<cmd>Telescope current_buffer_fuzzy_find sorting_strategy=ascending prompt_position=top<CR>"}
+-- nmap{"<leader>dl", "<cmd>Telescope diagnostics<cr>"}

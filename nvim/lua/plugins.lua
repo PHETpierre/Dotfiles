@@ -88,7 +88,10 @@ return require('packer').startup(function(use)
   use { 'junegunn/fzf.vim' }
   use { 'SirVer/ultisnips' }
   use { 'honza/vim-snippets' }
-  use { 'numtostr/BufOnly.nvim' }
+  use { 
+      'numtostr/BufOnly.nvim', 
+      'godlygeek/tabular' 
+  }
   use {
       'VonHeikemen/lsp-zero.nvim',
       branch = 'v1.x',
@@ -114,4 +117,8 @@ return require('packer').startup(function(use)
   use {
       'nvim-telescope/telescope.nvim', tag = '0.1.0',
   }
+  -- use {
+  --     'nvim-lualine/lualine.nvim',
+  --     requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+  -- }
 end)
