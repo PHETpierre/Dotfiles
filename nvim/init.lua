@@ -106,6 +106,7 @@ vim.cmd([[
 	autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window " . expand("%:t"))
 	autocmd BufReadPost *.php set filetype=html.php.css
 	autocmd BufReadPost *.php set syntax=php
+    autocmd BufEnter * silent! lcd %:p:h
 
 	set wrap
 	set linebreak
