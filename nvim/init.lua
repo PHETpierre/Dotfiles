@@ -19,6 +19,8 @@ end
 -- lua require('plugins')
 require("plugins")
 require("mason").setup()
+require('treesj').setup()
+
 local lsp = require('lsp-zero').preset({})
 
 lsp.on_attach(function(client, bufnr)
@@ -102,11 +104,11 @@ vim.cmd([[
     let g:airline#extensions#tabline#enabled = 1
     let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
     let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''$'', '''')}', 'windowswap', '%3p%%', 'linenr', ':%3v', ' %L'])
+    let g:splitjoin_disabled_split_callbacks = ['php#SplitAttributes']
 
 	autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window " . expand("%:t"))
 	autocmd BufReadPost *.php set filetype=html.php.css
 	autocmd BufReadPost *.php set syntax=php
-    autocmd BufEnter * silent! lcd %:p:h
 
 	set wrap
 	set linebreak
@@ -190,6 +192,9 @@ nmap("<C-p>", ":Buffers<Cr>")
 nmap("<C-l>", ":Files<Cr>")
 nmap("<leader>fa", ":Ag<Cr>")
 -- nmap("<leader>fb", ":BLines<Cr>")
+
+nmap("<leader>cs", "%")
+nmap("<leader>cf", "f><CR>")
 
 -- vmap("<C-y>", "\"+y")
 
