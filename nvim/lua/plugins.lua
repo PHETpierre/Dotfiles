@@ -112,7 +112,8 @@ return require('packer').startup(function(use)
           -- Snippets
           {'L3MON4D3/LuaSnip'},
           {'rafamadriz/friendly-snippets'},
-      }
+      },
+      cond = false
   }
   use {
       'nvim-telescope/telescope.nvim', tag = '0.1.0',

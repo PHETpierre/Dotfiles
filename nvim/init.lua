@@ -21,16 +21,16 @@ require("plugins")
 require("mason").setup()
 require('treesj').setup()
 
-local lsp = require('lsp-zero').preset({})
+-- local lsp = require('lsp-zero').preset({})
 
-lsp.on_attach(function(client, bufnr)
-  lsp.default_keymaps({buffer = bufnr})
-end)
+-- lsp.on_attach(function(client, bufnr)
+--   lsp.default_keymaps({buffer = bufnr})
+-- end)
 
 -- (Optional) Configure lua language server for neovim
 -- require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 
-lsp.setup()
+-- lsp.setup()
 
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
@@ -93,6 +93,8 @@ vim.g.UltiSnipsExpandTrigger = "<tab>"
 vim.g.UltiSnipsJumpForwardTrigger = "<tab>"
 vim.g.UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
+-- autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window " . expand("%:t"))
+
 vim.cmd([[
 	set nocompatible
 	filetype off
@@ -106,7 +108,6 @@ vim.cmd([[
     let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''$'', '''')}', 'windowswap', '%3p%%', 'linenr', ':%3v', ' %L'])
     let g:splitjoin_disabled_split_callbacks = ['php#SplitAttributes']
 
-	autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window " . expand("%:t"))
 	autocmd BufReadPost *.php set filetype=html.php.css
 	autocmd BufReadPost *.php set syntax=php
 
