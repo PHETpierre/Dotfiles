@@ -9,7 +9,7 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod4
+set $mod Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -41,10 +41,7 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 floating_modifier $mod
 
 # start a terminal
-# bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec alacritty -e tmux 
-# bindsym $mod+Shift+D exec alacritty --working-directory $PWD -e tmux 
-bindsym $mod+Shift+Return exec /home/francescon/sh/currentDirAlacritty.sh 
+bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -57,10 +54,10 @@ bindsym $mod+d exec dmenu_run
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -69,10 +66,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -81,7 +78,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-# bindsym $mod+h split h
+bindsym $mod+h split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -148,7 +145,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -177,33 +174,14 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 bindsym $mod+Tab workspace back_and_forth
-# bindsym $mod+g exec rofi -show run 
-bindsym $mod+g exec rofi -show drun -icon-theme "Papirus" -show-icons
-bindsym $mod+Shift+e exec rofi -show power-menu -modi power-menu:rofi-power-menu
-# bindsym $mod+Shift+e exec --no-startup-id ~/.config/rofi/bin/menu_powermenu 
+bindsym $mod+g exec rofi -show run 
 bindsym $mod+m move workspace to output left
-bindsym $mod+Shift+s exec systemctl suspend 
-bindsym $mod+Shift+f exec setxkbmap fr 
-bindsym $mod+Shift+u exec setxkbmap us 
-bindsym $mod+p exec --no-startup-id ~/.config/rofi/launchers/type-2/launcher.sh
-# bindsym $mod+x exec --no-startup-id powermenu_t2
-bindsym $mod+Shift+t fullscreen toggle global
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
         position top
-        font pango:DejaVu Sans Mono 10 
-        mode invisible 
-        # status_command /home/francescon/Documents/Git/bumblebee-status/bumblebee-status -m memory battery \
-        #/media/francescon/LinuxData/Git/polybar/build
-        # status_command /home/francescon/Documents/Git/polybar/build/bin/polybar -m memory battery \
-		# pasink pasource date time -p time.format="%H:%M" date.format="%a, %b %d %Y" \
-        # -t greyish-powerline 
-        # status_command /home/francescon/Documents/Git/polybar/build/bin/polybar
-        # -t iceberg-dark-powerline 
-        # -t onedark-powerline 
-        # status_command i3status
+        status_command i3status
 }
 
 # color defines for zenburn styled i3
@@ -227,25 +205,12 @@ mode "Exit (L)ogout, (R)eboot, (P)oweroff" {
 
 # bindsym $mod+Shift+e mode "Exit (L)ogout, (R)eboot, (P)oweroff"
 
-for_window [class=".*"] border pixel 0 
-# default_border pixel 0
+# gaps inner all set 20
+# gaps outer current plus 5
+# gaps horizontal current plus 40
+# gaps outer current toggle 60
+for_window [class=".*"] border pixel 0
 
-# gaps inner 5 
-gaps inner 15 
-gaps outer 10 
-
-# exec compton
-# exec udiskctl mount -b /dev/sdb5 
-# exec udiskie -a -n
-
-exec --no-startup-id picom -b --config ~/.config/picom/picom.conf
-exec --no-startup-id /usr/bin/setxkbmap -option "ctrl:nocaps" -option "ctrl:ralt_rctrl"
+exec compton
+exec setxkbmap -option ctrl:swapcaps
 exec --no-startup-id nitrogen --restore
-exec --no-startup-id source /etc/vim/vimrc
-exec --no-startup-id redshift -O 5000 
-exec --no-startup-id udiske -a
-exec --no-startup-id udisksctl mount -b /dev/sdb5 
-exec --no-startup-id /media/francescon/LinuxData/Sites/sh/connectPasseportDev.sh
-exec --no-startup-id /home/francescon/Documents/Git/xborder/launch_xborders.sh
-exec --no-startup-id ~/bin/i3-auto-layout
-exec --no-startup-id ~/sh/launch_polybar.sh
